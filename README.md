@@ -8,11 +8,11 @@
 
 ```
 node cleanup-openapi.js
+rm -r ./sdk/src
 npx @openapitools/openapi-generator-cli generate \
   -i openapi.clean.json \
   -g typescript-fetch \
-  -o ./sdk \
-  --additional-properties=npmName=@steinv/uitpas-sdk,npmVersion=1.0.0,supportsES6=true
+  -o ./sdk
 ```
 
 ## Publishing on NPM
