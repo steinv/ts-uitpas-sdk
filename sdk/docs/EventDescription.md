@@ -15,14 +15,14 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EventDescription } from '@steinv/uitpas-sdk'
+import type { EventDescription } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "nl": null,
-  "fr": null,
-  "de": null,
-  "en": null,
+  "nl": Picture of the last publiq event,
+  "fr": Picture of the last publiq event,
+  "de": Picture of the last publiq event,
+  "en": Picture of the last publiq event,
 } satisfies EventDescription
 
 console.log(example)

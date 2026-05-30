@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { CommonOpeningHoursAdjustedDaysInnerDescription } from '@steinv/uitpas-sdk'
+import type { CommonOpeningHoursAdjustedDaysInnerDescription } from ''
 
 // TODO: Update the object below with actual values
 const example = {

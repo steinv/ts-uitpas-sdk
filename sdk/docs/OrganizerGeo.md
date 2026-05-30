@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { OrganizerGeo } from '@steinv/uitpas-sdk'
+import type { OrganizerGeo } from ''
 
 // TODO: Update the object below with actual values
 const example = {

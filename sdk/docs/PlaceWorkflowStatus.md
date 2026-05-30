@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { PlaceWorkflowStatus } from '@steinv/uitpas-sdk'
+import type { PlaceWorkflowStatus } from ''
 
 // TODO: Update the object below with actual values
 const example = {

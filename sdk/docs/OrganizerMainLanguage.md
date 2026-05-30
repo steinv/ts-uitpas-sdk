@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { OrganizerMainLanguage } from '@steinv/uitpas-sdk'
+import type { OrganizerMainLanguage } from ''
 
 // TODO: Update the object below with actual values
 const example = {

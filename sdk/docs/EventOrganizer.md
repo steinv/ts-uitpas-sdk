@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EventOrganizer } from '@steinv/uitpas-sdk'
+import type { EventOrganizer } from ''
 
 // TODO: Update the object below with actual values
 const example = {

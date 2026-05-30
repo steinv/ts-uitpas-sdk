@@ -47,6 +47,24 @@ if (imageSchema) {
   }
 }
 
+// Remove `uniqueItems` from all array-type schemas.
+// The TypeScript generator maps `uniqueItems: true` to Set<T>, which lacks .map()
+// and other Array methods used in the generated API client code.
+let uniqueItemsRemoved = 0;
+function removeUniqueItems(node) {
+  if (!node || typeof node !== "object") return;
+  if (Array.isArray(node)) {
+    node.forEach(removeUniqueItems);
+    return;
+  }
+  if (node.type === "array" && node.uniqueItems) {
+    delete node.uniqueItems;
+    uniqueItemsRemoved++;
+  }
+  Object.values(node).forEach(removeUniqueItems);
+}
+removeUniqueItems(data);
+
 fs.writeFileSync(OUTPUT, JSON.stringify(data, null, 2), "utf8");
 
 console.log("Schema renames:");
@@ -57,4 +75,5 @@ Object.entries(SCHEMA_RENAMES).forEach(([from, to]) => {
 });
 console.log("Property fixes:");
 console.log("  Image.@id removed (prevented duplicate TypeScript `id` identifier)");
+console.log(`  uniqueItems removed from ${uniqueItemsRemoved} array schema(s) (prevented Set<T> generation)`);
 console.log(`\nWritten to ${OUTPUT}`);

@@ -17,7 +17,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ModelError } from '@steinv/uitpas-sdk'
+import type { ModelError } from ''
 
 // TODO: Update the object below with actual values
 const example = {

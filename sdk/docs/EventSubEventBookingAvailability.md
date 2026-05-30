@@ -14,7 +14,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EventSubEventBookingAvailability } from '@steinv/uitpas-sdk'
+import type { EventSubEventBookingAvailability } from ''
 
 // TODO: Update the object below with actual values
 const example = {

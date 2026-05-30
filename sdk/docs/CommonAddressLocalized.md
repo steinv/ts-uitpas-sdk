@@ -1,7 +1,7 @@
 
 # CommonAddressLocalized
 
-An address in the `nl` (Dutch) language.
+The address the place is located at, in the main language of the place.
 
 ## Properties
 
@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { CommonAddressLocalized } from '@steinv/uitpas-sdk'
+import type { CommonAddressLocalized } from ''
 
 // TODO: Update the object below with actual values
 const example = {

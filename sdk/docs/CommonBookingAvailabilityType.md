@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { CommonBookingAvailabilityType } from '@steinv/uitpas-sdk'
+import type { CommonBookingAvailabilityType } from ''
 
 // TODO: Update the object below with actual values
 const example = {

@@ -1,7 +1,7 @@
 
 # CommonName
 
-An internationalized name with one or more localized names.
+Name of a tariff inside priceInfo. Required if category is set to `tariff`. For the `base` category UiTdatabank will set a default. Requires at least one value, for the language specified in the `mainLanguage` property. Names must be unique (per language) when using multiple tarrifs.
 
 ## Properties
 
@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { CommonName } from '@steinv/uitpas-sdk'
+import type { CommonName } from ''
 
 // TODO: Update the object below with actual values
 const example = {

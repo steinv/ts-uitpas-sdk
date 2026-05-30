@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { Faq } from '@steinv/uitpas-sdk'
+import type { Faq } from ''
 
 // TODO: Update the object below with actual values
 const example = {

@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EventCalendarType } from '@steinv/uitpas-sdk'
+import type { EventCalendarType } from ''
 
 // TODO: Update the object below with actual values
 const example = {

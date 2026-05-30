@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EventStatus } from '@steinv/uitpas-sdk'
+import type { EventStatus } from ''
 
 // TODO: Update the object below with actual values
 const example = {

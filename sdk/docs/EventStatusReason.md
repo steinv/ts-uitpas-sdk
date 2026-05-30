@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EventStatusReason } from '@steinv/uitpas-sdk'
+import type { EventStatusReason } from ''
 
 // TODO: Update the object below with actual values
 const example = {

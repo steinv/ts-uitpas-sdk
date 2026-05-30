@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EventDeparturePlaces } from '@steinv/uitpas-sdk'
+import type { EventDeparturePlaces } from ''
 
 // TODO: Update the object below with actual values
 const example = {

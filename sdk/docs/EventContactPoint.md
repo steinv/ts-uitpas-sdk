@@ -14,7 +14,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EventContactPoint } from '@steinv/uitpas-sdk'
+import type { EventContactPoint } from ''
 
 // TODO: Update the object below with actual values
 const example = {

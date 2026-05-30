@@ -18,7 +18,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EventSubEventInner } from '@steinv/uitpas-sdk'
+import type { EventSubEventInner } from ''
 
 // TODO: Update the object below with actual values
 const example = {

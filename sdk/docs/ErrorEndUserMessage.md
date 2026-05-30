@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ErrorEndUserMessage } from '@steinv/uitpas-sdk'
+import type { ErrorEndUserMessage } from ''
 
 // TODO: Update the object below with actual values
 const example = {

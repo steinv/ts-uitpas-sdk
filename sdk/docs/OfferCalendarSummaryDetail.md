@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { OfferCalendarSummaryDetail } from '@steinv/uitpas-sdk'
+import type { OfferCalendarSummaryDetail } from ''
 
 // TODO: Update the object below with actual values
 const example = {

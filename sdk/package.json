@@ -1,6 +1,6 @@
 {
   "name": "@steinv/uitpas-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "BETA OpenAPI client for @steinv/uitpas-sdk",
   "author": "Stein Vanmassenhove",
   "repository": {

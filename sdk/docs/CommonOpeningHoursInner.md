@@ -8,12 +8,12 @@ Name | Type
 ------------ | -------------
 `opens` | string
 `closes` | string
-`dayOfWeek` | Set&lt;string&gt;
+`dayOfWeek` | Array&lt;string&gt;
 
 ## Example
 
 ```typescript
-import type { CommonOpeningHoursInner } from '@steinv/uitpas-sdk'
+import type { CommonOpeningHoursInner } from ''
 
 // TODO: Update the object below with actual values
 const example = {

@@ -9,12 +9,12 @@ Name | Type
 ------------ | -------------
 `id` | string
 `title` | string
-`otherEvents` | Set&lt;string&gt;
+`otherEvents` | Array&lt;string&gt;
 
 ## Example
 
 ```typescript
-import type { EventProduction } from '@steinv/uitpas-sdk'
+import type { EventProduction } from ''
 
 // TODO: Update the object below with actual values
 const example = {

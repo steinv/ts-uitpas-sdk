@@ -18,21 +18,21 @@ Name | Type
 `contactPoint` | [OrganizerContactPoint](OrganizerContactPoint.md)
 `images` | [Array&lt;Image&gt;](Image.md)
 `mainImage` | string
-`labels` | Set&lt;string&gt;
-`hiddenLabels` | Set&lt;string&gt;
+`labels` | Array&lt;string&gt;
+`hiddenLabels` | Array&lt;string&gt;
 `created` | Date
 `workflowStatus` | [OrganizerWorkflowStatus](OrganizerWorkflowStatus.md)
 `languages` | Array&lt;string&gt;
 `completedLanguages` | Array&lt;string&gt;
 `modified` | Date
 `creator` | string
-`contributors` | Set&lt;string&gt;
+`contributors` | Array&lt;string&gt;
 `completeness` | number
 
 ## Example
 
 ```typescript
-import type { Organizer } from '@steinv/uitpas-sdk'
+import type { Organizer } from ''
 
 // TODO: Update the object below with actual values
 const example = {

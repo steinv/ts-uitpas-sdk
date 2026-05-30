@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { PlaceMainLanguage } from '@steinv/uitpas-sdk'
+import type { PlaceMainLanguage } from ''
 
 // TODO: Update the object below with actual values
 const example = {

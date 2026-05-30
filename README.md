@@ -8,7 +8,7 @@ npm install @steinv/uitpas-sdk
 
 ## SDK (re)Generation
 
-1. Download [openapi.json](https://stoplight.io/api/v1/projects/publiq/uitdatabank/nodes/reference/search.json?deref=optimizedBundle)
+1. Download [openapi.json](https://stoplight.io/api/v1/projects/publiq/uitdatabank/nodes/reference/entry.json?deref=optimizedBundle)
 
 2. Replace offending schemas in `openapi.json` and generate with
 

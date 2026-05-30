@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { PlaceCalendarSummary } from '@steinv/uitpas-sdk'
+import type { PlaceCalendarSummary } from ''
 
 // TODO: Update the object below with actual values
 const example = {

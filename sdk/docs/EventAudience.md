@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EventAudience } from '@steinv/uitpas-sdk'
+import type { EventAudience } from ''
 
 // TODO: Update the object below with actual values
 const example = {

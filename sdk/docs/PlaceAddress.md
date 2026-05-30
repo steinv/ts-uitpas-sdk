@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { PlaceAddress } from '@steinv/uitpas-sdk'
+import type { PlaceAddress } from ''
 
 // TODO: Update the object below with actual values
 const example = {

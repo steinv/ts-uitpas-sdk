@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { ErrorSchemaErrorsInner } from '@steinv/uitpas-sdk'
+import type { ErrorSchemaErrorsInner } from ''
 
 // TODO: Update the object below with actual values
 const example = {

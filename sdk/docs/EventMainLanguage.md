@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EventMainLanguage } from '@steinv/uitpas-sdk'
+import type { EventMainLanguage } from ''
 
 // TODO: Update the object below with actual values
 const example = {

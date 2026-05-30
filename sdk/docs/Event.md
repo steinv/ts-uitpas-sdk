@@ -10,7 +10,7 @@ Name | Type
 `id` | string
 `mainLanguage` | [EventMainLanguage](EventMainLanguage.md)
 `name` | [EventName](EventName.md)
-`terms` | [Set&lt;EventTermsInner&gt;](EventTermsInner.md)
+`terms` | [Array&lt;EventTermsInner&gt;](EventTermsInner.md)
 `location` | [EventLocation](EventLocation.md)
 `calendarType` | [EventCalendarType](EventCalendarType.md)
 `startDate` | Date
@@ -25,7 +25,7 @@ Name | Type
 `availableFrom` | Date
 `availableTo` | Date
 `organizer` | [EventOrganizer](EventOrganizer.md)
-`sameAs` | Set&lt;string&gt;
+`sameAs` | Array&lt;string&gt;
 `workflowStatus` | [EventWorkflowStatus](EventWorkflowStatus.md)
 `audience` | [EventAudience](EventAudience.md)
 `languages` | Array&lt;string&gt;
@@ -39,14 +39,14 @@ Name | Type
 `mediaObject` | [Array&lt;Image&gt;](Image.md)
 `image` | string
 `videos` | [Array&lt;EventVideosInner&gt;](EventVideosInner.md)
-`labels` | Set&lt;string&gt;
-`hiddenLabels` | Set&lt;string&gt;
+`labels` | Array&lt;string&gt;
+`hiddenLabels` | Array&lt;string&gt;
 `production` | [EventProduction](EventProduction.md)
 `bookingAvailability` | [EventBookingAvailability](EventBookingAvailability.md)
 `created` | Date
 `modified` | Date
 `creator` | string
-`contributors` | Set&lt;string&gt;
+`contributors` | Array&lt;string&gt;
 `completeness` | number
 `calendarSummary` | [EventCalendarSummary](EventCalendarSummary.md)
 `faqs` | [Array&lt;Faq&gt;](Faq.md)
@@ -55,7 +55,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { Event } from '@steinv/uitpas-sdk'
+import type { Event } from ''
 
 // TODO: Update the object below with actual values
 const example = {

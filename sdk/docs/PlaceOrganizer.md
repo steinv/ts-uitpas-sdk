@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { PlaceOrganizer } from '@steinv/uitpas-sdk'
+import type { PlaceOrganizer } from ''
 
 // TODO: Update the object below with actual values
 const example = {

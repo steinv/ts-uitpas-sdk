@@ -10,7 +10,7 @@ Name | Type
 `id` | string
 `mainLanguage` | [PlaceMainLanguage](PlaceMainLanguage.md)
 `name` | [PlaceName](PlaceName.md)
-`terms` | [Set&lt;PlaceTermsInner&gt;](PlaceTermsInner.md)
+`terms` | [Array&lt;PlaceTermsInner&gt;](PlaceTermsInner.md)
 `calendarType` | [PlaceCalendarType](PlaceCalendarType.md)
 `address` | [PlaceAddress](PlaceAddress.md)
 `geo` | [PlaceGeo](PlaceGeo.md)
@@ -34,21 +34,21 @@ Name | Type
 `mediaObject` | [Array&lt;Image&gt;](Image.md)
 `image` | string
 `videos` | [Array&lt;EventVideosInner&gt;](EventVideosInner.md)
-`labels` | Set&lt;string&gt;
-`hiddenLabels` | Set&lt;string&gt;
+`labels` | Array&lt;string&gt;
+`hiddenLabels` | Array&lt;string&gt;
 `bookingAvailability` | [PlaceBookingAvailability](PlaceBookingAvailability.md)
 `creator` | string
 `created` | Date
 `modified` | Date
-`sameAs` | Set&lt;string&gt;
-`contributors` | Set&lt;string&gt;
+`sameAs` | Array&lt;string&gt;
+`contributors` | Array&lt;string&gt;
 `completeness` | number
 `calendarSummary` | [PlaceCalendarSummary](PlaceCalendarSummary.md)
 
 ## Example
 
 ```typescript
-import type { Place } from '@steinv/uitpas-sdk'
+import type { Place } from ''
 
 // TODO: Update the object below with actual values
 const example = {

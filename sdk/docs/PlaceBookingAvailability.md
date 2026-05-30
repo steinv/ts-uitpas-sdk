@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { PlaceBookingAvailability } from '@steinv/uitpas-sdk'
+import type { PlaceBookingAvailability } from ''
 
 // TODO: Update the object below with actual values
 const example = {

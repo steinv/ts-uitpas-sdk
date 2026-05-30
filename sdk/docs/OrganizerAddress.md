@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { OrganizerAddress } from '@steinv/uitpas-sdk'
+import type { OrganizerAddress } from ''
 
 // TODO: Update the object below with actual values
 const example = {

@@ -1,7 +1,7 @@
 
 # CommonLanguage
 
-The language of the video. Can be one of `nl`, `fr`, `de`, or `en`.
+Locale of text used in the image and its description. If omitted, the language that was given when the image was uploaded will be used.
 
 ## Properties
 
@@ -11,7 +11,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { CommonLanguage } from '@steinv/uitpas-sdk'
+import type { CommonLanguage } from ''
 
 // TODO: Update the object below with actual values
 const example = {

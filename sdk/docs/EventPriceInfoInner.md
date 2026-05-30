@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { EventPriceInfoInner } from '@steinv/uitpas-sdk'
+import type { EventPriceInfoInner } from ''
 
 // TODO: Update the object below with actual values
 const example = {

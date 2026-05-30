@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { FaqFr } from '@steinv/uitpas-sdk'
+import type { FaqFr } from ''
 
 // TODO: Update the object below with actual values
 const example = {

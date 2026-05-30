@@ -1,6 +1,6 @@
 # @steinv/uitpas-sdk@1.0.0
 
-A TypeScript SDK client for the search-test.uitdatabank.be API.
+A TypeScript SDK client for the io-test.uitdatabank.be API.
 
 ## Usage
 
@@ -16,137 +16,25 @@ Next, try it out.
 ```ts
 import {
   Configuration,
-  EventsPlacesApi,
+  EventsApi,
 } from '@steinv/uitpas-sdk';
-import type { GetEventsRequest } from '@steinv/uitpas-sdk';
+import type { EventAttendanceModePutRequest } from '@steinv/uitpas-sdk';
 
 async function example() {
   console.log("🚀 Testing @steinv/uitpas-sdk SDK...");
   const config = new Configuration({ 
-    // To configure API key authorization: CLIENT_IDENTIFICATION
-    apiKey: "YOUR API KEY",
   });
-  const api = new EventsPlacesApi(config);
+  const api = new EventsApi(config);
 
   const body = {
-    // string | The client id of your project (if not using an API key). May also be replaced with a `clientId` query parameter. (optional)
-    xClientId: xClientId_example,
-    // string | The API key of your project on https://projectaanvraag.uitdatabank.be (if not using a client id). May also be replaced with an `apiKey` query parameter. Will be deprecated in favour of `x-client-id` in the future, but will still be supported. (optional)
-    xApiKey: xApiKey_example,
-    // string | Free text search terms. Returns results that match all or some of the given terms. May contain `AND` and `OR` operators, and brackets for grouping. Can not filter on specific fields (contrary to the `q` parameter). Typically used to search on user-provided keywords. (optional)
-    text:  dijle (wandelen OR fietsen),
-    // string | An advanced query in Lucene syntax, allowing you to construct complex AND/OR filters on specific fields. (optional)
-    q: labels:"ook voor kinderen" OR labels:"ook voor jongeren",
-    // string | Returns only results that have the exact same postal code in their address. Typically 4 digits for Belgian addresses but can also be a different format for international addresses. (optional)
-    postalCode: 1000,
-    // string | Returns only results that have the exact same country code in their address. Formatted as an [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. The default value can be disabled by setting the value to `*` or by using the `disableDefaultFilters` query parameter. (optional)
-    addressCountry: BE,
-    // number | Returns only results that are targeted to participants/visitors of at most the given age (in years). The given age will be included in results. (optional)
-    maxAge: 18,
-    // number | Returns only results that are targeted to participants/visitors of at least the given age (in years). The given age will be included in results. (optional)
-    minAge: 12,
-    // boolean | Returns only results that are suitable for participants/visitors of all ages if set to `true`, or only returns results that are suitable for a specific age group if set to `false`. (optional)
-    allAges: true,
-    // 'everyone' | 'members' | 'education' | '*' | Returns only results with the given enum value as their targeted audience. Results with audienceType `everyone` are targeted to any participant/visitor. Results with audienceType `members` are only targeted towards members of the organizer of the event. Results with audienceType `education` are targeted towards [CultuurKuur](https://www.cultuurkuur.be/). (optional)
-    audienceType: audienceType_example,
-    // Date | Returns only results that should (still) be visible on online calendars after the given date-time. Defaults to the current date-time of the request. The default value can be disabled by setting the value to `*` or by using the `disableDefaultFilters` query parameter. See (the guide about default filters)[../docs/search-api/common-filters/default-filters.md] for more information. (optional)
-    availableFrom: 2022-03-04T10:30:00+01:00,
-    // Date | Returns only results that should be visible on online calendars up until the given date-time. Defaults to the current date-time of the request. The default value can be disabled by setting the value to `*` or by using the `disableDefaultFilters` query parameter. See (the guide about default filters)[../docs/search-api/common-filters/default-filters.md] for more information. (optional)
-    availableTo: 2022-03-05T10:30:00+01:00,
-    // Array<'online' | 'offline' | 'mixed'> | Returns only results with the given enum value as their attendance mode. Results with attendanceMode `online` are only happening online (e.g. via a video stream). Results with attendanceMode `offline` are only happening on a physical location. Results with attendanceMode `mixed` can be attended both online or offline. Note that when filtering on `mixed`, _only_ results that are both happening online and offline will be included. Accepts multiple comma-separated values to return results that have one of the given attendance modes. (optional)
-    attendanceMode: ...,
-    // 'Available' | 'Unavailable' | Returns only results with the given enum value as their bookingAvailability type. Results with bookingAvailability `Available` still have tickets/reservations available. Results with bookingAvailability `Unavailable` are sold out / fully booked. (optional)
-    bookingAvailability: bookingAvailability_example,
-    // Array<'single' | 'multiple' | 'periodic' | 'permanent'> | Returns only results with the given enum value as their calendarType. Accepts multiple comma-separated values to return results that have one of the given calendar types. [Here is a detailed guide](./entry-api/shared/calendar-info#calendartype) with more information. (optional)
-    calendarType: ...,
-    // Date | Returns only results that were created at or after the given date-time. (optional)
-    createdFrom: 2022-03-04T10:30:00+01:00,
-    // Date | Returns only results that were created at or before the given date-time. (optional)
-    createdTo: 2022-03-05T10:30:00+01:00,
-    // Date | Returns only results that were last modified at or after the given date-time. If the result has never been modified, the `created` date-time will be used as `modified` instead. (optional)
-    modifiedFrom: 2022-03-04T10:30:00+01:00,
-    // Date | Returns only results that were last modified at or before the given date-time. If the result has never been modified, the `created` date-time will be used as `modified` instead. (optional)
-    modifiedTo: 2022-03-05T10:30:00+01:00,
-    // string | Returns results for which a particular user / email address is a contributor (optional)
-    contributors: technical-support@publiq.be,
-    // string | Returns only results that have a creator with the given user identifier. Due to historic reasons and evolutions in the id management systems, a user identifier can be one of: a UUID (for creators that had an UiTiD v1), an Auth0 user id (for new UiTiD v2 creators), or in some very old cases even an email address or nickname. (No new events or places are created with an email address or nickname as creator.) Can also be a client id suffixed with `@clients` in the case of results created with a client access token instead of a user access token. (optional)
-    creator: lxBfdgJwUaJUgm7CBCeKF2eE2fnsyLCB@clients,
-    // Date | Returns only events that are happening at some point after the given date-time, and places that are open at some point after the given date-time. Permanent events or places are always returned by this parameter. (optional)
-    dateFrom: 2022-03-04T10:30:00+01:00,
-    // Date | Returns only events that are happening at some point before the given date-time, and places that are open at some point before the given date-time. Permanent events or places are always returned by this parameter. (optional)
-    dateTo: 2022-03-05T10:30:00+01:00,
-    // string | Returns only events that are happening at some point after the given time, and places that are open at some point after the given time. Dates and timezones are not taken into account by this parameter. Permanent events or places are always returned by this parameter. (optional)
-    localTimeFrom: 08:30,
-    // string | Returns only events that are happening at some point before the given time, and places that are open at some point before the given time. Dates and timezones are not taken into account by this parameter. Permanent events or places are always returned by this parameter. (optional)
-    localTimeTo: 23:59,
-    // boolean | Returns the results with the actual JSON bodies of the individual items (optional)
-    embed: true,
-    // Array<'xs-text' | 'sm-text' | 'md-text' | 'lg-text' | 'xs-html' | 'sm-html' | 'md-html' | 'lg-html'> | Adds an extra `calendarSummary` property to the results that contains one or more formatted human-readable summaries of the date/time info of the result. May be repeated to include multiple summaries per result. See the operation\'s description above for more info on how to repeat parameters. (optional)
-    embedCalendarSummaries: ...,
-    // boolean | Returns the results with the UiTPAS prices included (if applicable) (optional)
-    embedUitpasPrices: true,
-    // Array<'regions' | 'types' | 'themes' | 'facilities' | 'labels'> | Adds an extra `facet` property in the response with possible values for a given filter, and a prediction of the total results if applied. May be repeated to include facet counts for multiple filters. See the operation\'s description above for more info on how to repeat parameters. See (the guide about facets)[../docs/search-api/advanced/facets.md] for more information. (optional)
-    facets: ...,
-    // 'productionId' | Groups the results by their production. Grouping by productions ensures that for every production, only 1 event is returned in the search results (optional)
-    groupBy: groupBy_example,
-    // Array<string> | Returns only results that are geographically located in the given region. Regions may be fetched programmatically from [https://search.uitdatabank.be/autocomplete.json](https://search.uitdatabank.be/autocomplete.json). (optional)
-    regions: ...,
-    // string | A pair of latitude and longitude coordinates to find results that are located within a distance of the given geographical point. Must be used in combination with the `distance` parameter. (optional)
-    coordinates: 50.8511740,4.338674,
-    // string | Returns only results that are geographically located within the given distance from the `coordinates` parameter. (optional)
-    distance: 10km,
-    // string | Returns only results that are located in a specific geographical area defined by a pair of south-west coordinates and north-east coordinates. The two pairs of coordinates are separated by a pipe character (`|`). (optional)
-    bounds: 34.172684,-118.604794|34.236144,-118.500938,
-    // string | Returns only results that have the exact same id. An id can be extracted from an event, place, or organizer URI by taking all the characters after the last `/`. For example for the URI `https://io-test.uitdatabank.be/events/75573a64-ddc8-4fd0-8b07-d258939dd74f` the id is `75573a64-ddc8-4fd0-8b07-d258939dd74f`. Note that while it will be a UUID in most cases, it is not guaranteed to always be one! (optional)
-    id: f29d2182-2db0-4f99-831a-8e6a64c1c9c1,
-    // string | Returns only results that are related to the given location id (= place id). A place\'s id can be extracted from its URI by taking all the characters after the last `/`. For example for the URI `https://io-test.uitdatabank.be/places/75573a64-ddc8-4fd0-8b07-d258939dd74f` the id is `75573a64-ddc8-4fd0-8b07-d258939dd74f`. Note that while it will be a UUID in most cases, it is not guaranteed to always be one! (optional)
-    locationId: a0368d10-ded0-4925-b94a-2835f73e255e,
-    // string | Returns only results that are related to the given organizer id. An organizer\'s id can be extracted from its URI by taking all the characters after the last `/`. For example for the URI `https://io-test.uitdatabank.be/organizers/75573a64-ddc8-4fd0-8b07-d258939dd74f` the id is `75573a64-ddc8-4fd0-8b07-d258939dd74f`. Note that while it will be a UUID in most cases, it is not guaranteed to always be one! (optional)
-    organizerId: 4fa5dddf-73d5-47f8-b54f-45d88cc1661a,
-    // Array<string> | Returns only results that have the given label(s) in either their `labels` or `hiddenLabels` properties. May be repeated to only return results that have all the given labels. See the operation\'s description above for more info on how to repeat parameters. (optional)
-    labels: ...,
-    // Array<string> | Returns only results that have the given label(s) in their location\'s `labels` or `hiddenLabels` properties. May be repeated to only return results with a location that has all the given labels. See the operation\'s description above for more info on how to repeat parameters. (optional)
-    locationLabels: ...,
-    // Array<string> | Returns only results that have the given label(s) in their organizer\'s `labels` or `hiddenLabels` properties. May be repeated to only return results with an organizer that has all the given labels. See the operation\'s description above for more info on how to repeat parameters. (optional)
-    organizerLabels: ...,
-    // 'nl' | 'fr' | 'de' | 'en' | Returns only results that have the given language code as their main (= original) language. (optional)
-    mainLanguage: mainLanguage_example,
-    // Array<'nl' | 'fr' | 'de' | 'en'> | Returns only results that have a localised value in the given language for one or more translatable fields like `name`. May be repeated to only return results that have localised values for all the given languages. See the operation\'s description above for more info on how to repeat parameters. (optional)
-    languages: ...,
-    // Array<'nl' | 'fr' | 'de' | 'en'> | Returns only results that have a localised value in the given language for every translatable field. May be repeated to only return results that have localised values for all the given languages. See the operation\'s description above for more info on how to repeat parameters. (optional)
-    completedLanguages: ...,
-    // boolean | Returns only results that have one or more items inside their `mediaObject` property if set to `true`. Returns only results without `mediaObject` property if set to `false`. (optional)
-    hasMediaObjects: true,
-    // number | Returns only results with exactly the same price for the base tariff (in EUR). (optional)
-    price: 5.75,
-    // number | Returns only results with a price for the base tariff that is equal to or higher than the given price (in EUR). (optional)
-    minPrice: 5.75,
-    // number | Returns only results with a price for the base tariff that is equal to or lower than the given price (in EUR). (optional)
-    maxPrice: 8.14,
-    // 'asc' | 'desc' | Sorts the results by their score (relevance), either with the lowest score first (`asc`) or the highest score first (`desc`). See (the guide about sorting)[../docs/search-api/sorting.md] for more information. (optional)
-    sortScore: sortScore_example,
-    // 'asc' | 'desc' | Sorts the results by their `availableTo` date-time, either with the oldest date-time first (`asc`) or the highest date-time first (`desc`). Most commonly used to show events and/or places that will end or become unavailable soon. See (the guide about sorting)[../docs/search-api/sorting.md] for more information. (optional)
-    sortAvailableTo: sortAvailableTo_example,
-    // 'asc' | 'desc' | Sorts the results by their `created` date-time, either with the oldest results first (`asc`) or the newest results first (`desc`). See (the guide about sorting)[../docs/search-api/sorting.md] for more information. (optional)
-    sortCreated: sortCreated_example,
-    // 'asc' | 'desc' | Sorts the results by their `modified` date-time, either with the least recently modified results first (`asc`) or the most recently modified results first (`desc`). See (the guide about sorting)[../docs/search-api/sorting.md] for more information. (optional)
-    sortModified: sortModified_example,
-    // 'asc' | 'desc' | Sorts the results by their distance from the `coordinates` parameter. Can only be used if `coordinates` and `distance` are also set. You may use multiple sort parameters. See (the guide about sorting)[../docs/search-api/sorting.md] for more information. (optional)
-    sortDistance: sortDistance_example,
-    // Array<'Available' | 'TemporarilyUnavailable' | 'Unavailable'> | Returns only results with exactly the same status type as the given enum value. `Available` means an event is happening as planned, and a place can be visited during its normal opening hours. `TemporarilyUnavailable` means an event has been postponed to a later date (yet to be determined), and a place is temporarily closed (for example due to renovations). `Unavailable` means an event is cancelled, or a place is permanently closed. If combined with `dateFrom` and/or `dateTo`, only results that have the given status in that time period will be returned. Accepts multiple comma-separated values to return results that have one of the given status types. (optional)
-    status: ...,
-    // Array<string> | Returns only results that have the given term id(s) in either their `terms` property items. May be repeated to only return results that have all the given term ids. See the operation\'s description above for more info on how to repeat parameters. (optional)
-    termIds: ...,
-    // boolean | Returns only results that are related to UiTPAS if set to `true`. Returns only results that are not related to UiTPAS if set to `false`. (optional)
-    uitpas: true,
-    // boolean | Returns only results that have one or more items in their `videos` property if set to `true`. Returns only results that have no `videos` property if set to `false`. (optional)
-    hasVideos: true,
-    // Array<'DRAFT' | 'READY_FOR_VALIDATION' | 'APPROVED' | 'REJECTED' | 'DELETED' | '*'> | Returns only results with exactly the same workflow status as the given enum value. Accepts multiple comma-separated values to return results that have one of the given workflow statuses. Defaults to only return results that either have the workflow status `READY_FOR_VALIDATION` or `APPROVED`. The default value can be reset by setting the parameter to `*`. See (the guide about default filters)[../docs/search-api/common-filters/default-filters.md] for more information. (optional)
-    workflowStatus: ...,
-  } satisfies GetEventsRequest;
+    // string | Unique id of an event, in the format of a UUID
+    eventId: F2D5D20C-CC98-4979-9CD2-453ABAD979B5,
+    // EventAttendanceModePut | New attendanceMode to set on the event, and optionally a new location (when moving from attendanceMode `online` to `mixed` or `offline`). (optional)
+    eventAttendanceModePut: {"attendanceMode":"online"},
+  } satisfies EventAttendanceModePutRequest;
 
   try {
-    const data = await api.getEvents(body);
+    const data = await api.eventAttendanceModePut(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -162,27 +50,124 @@ example().catch(console.error);
 
 ### API Endpoints
 
-All URIs are relative to *https://search-test.uitdatabank.be*
+All URIs are relative to *https://io-test.uitdatabank.be*
 
 | Class | Method | HTTP request | Description
 | ----- | ------ | ------------ | -------------
-*EventsPlacesApi* | [**getEvents**](docs/EventsPlacesApi.md#getevents) | **GET** /events | Search events
-*EventsPlacesApi* | [**getOffers**](docs/EventsPlacesApi.md#getoffers) | **GET** /offers | Search events &amp; places (offers)
-*EventsPlacesApi* | [**getPlaces**](docs/EventsPlacesApi.md#getplaces) | **GET** /places | Search places
-*EventsPlacesApi* | [**postEvents**](docs/EventsPlacesApi.md#postevents) | **POST** /events | Search events
-*EventsPlacesApi* | [**postOffers**](docs/EventsPlacesApi.md#postoffers) | **POST** /offers | Search events &amp; places (offers)
-*EventsPlacesApi* | [**postPlaces**](docs/EventsPlacesApi.md#postplaces) | **POST** /places | Search places
-*OrganizersApi* | [**getOrganizers**](docs/OrganizersApi.md#getorganizers) | **GET** /organizers | Search organizers
-*OrganizersApi* | [**postOrganizers**](docs/OrganizersApi.md#postorganizers) | **POST** /organizers | Search organizers
+*EventsApi* | [**eventAttendanceModePut**](docs/EventsApi.md#eventattendancemodeput) | **PUT** /events/{eventId}/attendance-mode | attendanceMode - update
+*EventsApi* | [**eventAudiencePut**](docs/EventsApi.md#eventaudienceput) | **PUT** /events/{eventId}/audience | audience - update
+*EventsApi* | [**eventAvailableFromPut**](docs/EventsApi.md#eventavailablefromput) | **PUT** /events/{eventId}/available-from | availableFrom - update
+*EventsApi* | [**eventBirthdateRangeDelete**](docs/EventsApi.md#eventbirthdaterangedelete) | **DELETE** /events/{eventId}/birthdate-range | birthdateRange - delete
+*EventsApi* | [**eventBirthdateRangePut**](docs/EventsApi.md#eventbirthdaterangeput) | **PUT** /events/{eventId}/birthdate-range | birthdateRange - update
+*EventsApi* | [**eventBookingAvailabilityPut**](docs/EventsApi.md#eventbookingavailabilityput) | **PUT** /events/{eventId}/booking-availability | bookingAvailability - update
+*EventsApi* | [**eventBookingInfoPut**](docs/EventsApi.md#eventbookinginfoput) | **PUT** /events/{eventId}/booking-info | bookingInfo - update
+*EventsApi* | [**eventCalendarPut**](docs/EventsApi.md#eventcalendarput) | **PUT** /events/{eventId}/calendar | calendar - put
+*EventsApi* | [**eventCalendarSummaryGet**](docs/EventsApi.md#eventcalendarsummaryget) | **GET** /events/{eventId}/calendar-summary | calendar summary - get
+*EventsApi* | [**eventContactPointPut**](docs/EventsApi.md#eventcontactpointput) | **PUT** /events/{eventId}/contact-point | contactPoint - update
+*EventsApi* | [**eventCopiesPost**](docs/EventsApi.md#eventcopiespostoperation) | **POST** /events/{eventId}/copies | event - copy
+*EventsApi* | [**eventDelete**](docs/EventsApi.md#eventdelete) | **DELETE** /events/{eventId} | event - delete
+*EventsApi* | [**eventDeparturePlacesPut**](docs/EventsApi.md#eventdepartureplacesput) | **PUT** /events/{eventId}/departurePlaces | departurePlaces - update
+*EventsApi* | [**eventDescriptionDelete**](docs/EventsApi.md#eventdescriptiondelete) | **DELETE** /events/{eventId}/description/{language} | description - delete
+*EventsApi* | [**eventDescriptionPut**](docs/EventsApi.md#eventdescriptionput) | **PUT** /events/{eventId}/description/{language} | description - update
+*EventsApi* | [**eventFacilitiesPut**](docs/EventsApi.md#eventfacilitiesput) | **PUT** /events/{eventId}/facilities | facilities - update
+*EventsApi* | [**eventFaqsPut**](docs/EventsApi.md#eventfaqsput) | **PUT** /events/{eventId}/faqs | faqs - update
+*EventsApi* | [**eventGet**](docs/EventsApi.md#eventget) | **GET** /events/{eventId} | event - get
+*EventsApi* | [**eventImageDelete**](docs/EventsApi.md#eventimagedelete) | **DELETE** /events/{eventId}/images/{imageId} | images - delete
+*EventsApi* | [**eventImagePut**](docs/EventsApi.md#eventimageput) | **PUT** /events/{eventId}/images/{imageId} | images - update
+*EventsApi* | [**eventImagesPost**](docs/EventsApi.md#eventimagespost) | **POST** /events/{eventId}/images | images - add
+*EventsApi* | [**eventImportNew**](docs/EventsApi.md#eventimportnew) | **POST** /imports/events | event - import (create)
+*EventsApi* | [**eventImportUpdate**](docs/EventsApi.md#eventimportupdate) | **PUT** /imports/events/{eventId} | event - import (update)
+*EventsApi* | [**eventLabelsAdd**](docs/EventsApi.md#eventlabelsadd) | **PUT** /events/{eventId}/labels/{labelName} | labels - add
+*EventsApi* | [**eventLabelsDelete**](docs/EventsApi.md#eventlabelsdelete) | **DELETE** /events/{eventId}/labels/{labelName} | labels - delete
+*EventsApi* | [**eventLocationPut**](docs/EventsApi.md#eventlocationput) | **PUT** /events/{eventId}/location/{placeId} | location - update
+*EventsApi* | [**eventMainImagePut**](docs/EventsApi.md#eventmainimageput) | **PUT** /events/{eventId}/images/main | images main - update
+*EventsApi* | [**eventMajorInfoPut**](docs/EventsApi.md#eventmajorinfoputoperation) | **PUT** /events/{eventId}/major-info | major-info - update
+*EventsApi* | [**eventNamePut**](docs/EventsApi.md#eventnameput) | **PUT** /events/{eventId}/name/{language} | name - update
+*EventsApi* | [**eventOnlineUrlDelete**](docs/EventsApi.md#eventonlineurldelete) | **DELETE** /events/{eventId}/online-url | onlineUrl - delete
+*EventsApi* | [**eventOnlineUrlPut**](docs/EventsApi.md#eventonlineurlput) | **PUT** /events/{eventId}/online-url | onlineUrl - update
+*EventsApi* | [**eventOrganizerDelete**](docs/EventsApi.md#eventorganizerdelete) | **DELETE** /events/{eventId}/organizer/{organizerId} | organizer - delete
+*EventsApi* | [**eventOrganizerUpdate**](docs/EventsApi.md#eventorganizerupdate) | **PUT** /events/{eventId}/organizer/{organizerId} | organizer - update
+*EventsApi* | [**eventPost**](docs/EventsApi.md#eventpost) | **POST** /events | event - create
+*EventsApi* | [**eventPriceInfoPut**](docs/EventsApi.md#eventpriceinfoput) | **PUT** /events/{eventId}/price-info | priceInfo - update
+*EventsApi* | [**eventPut**](docs/EventsApi.md#eventput) | **PUT** /events/{eventId} | event - update
+*EventsApi* | [**eventStatusPut**](docs/EventsApi.md#eventstatusput) | **PUT** /events/{eventId}/status | status - update
+*EventsApi* | [**eventSubEventPatch**](docs/EventsApi.md#eventsubeventpatch) | **PATCH** /events/{eventId}/sub-events | subEvent - patch
+*EventsApi* | [**eventTermsEventtypePut**](docs/EventsApi.md#eventtermseventtypeput) | **PUT** /events/{eventId}/type/{termId} | terms &gt; eventtype - update
+*EventsApi* | [**eventTermsThemeDelete**](docs/EventsApi.md#eventtermsthemedelete) | **DELETE** /events/{eventId}/theme | terms &gt; theme - delete
+*EventsApi* | [**eventTermsThemePut**](docs/EventsApi.md#eventtermsthemeput) | **PUT** /events/{eventId}/theme/{termId} | terms &gt; theme - update
+*EventsApi* | [**eventTypicalAgeRangeDelete**](docs/EventsApi.md#eventtypicalagerangedelete) | **DELETE** /events/{eventId}/typical-age-range | typicalAgeRange - delete
+*EventsApi* | [**eventTypicalAgeRangePut**](docs/EventsApi.md#eventtypicalagerangeput) | **PUT** /events/{eventId}/typical-age-range | typicalAgeRange - update
+*EventsApi* | [**eventVideosDelete**](docs/EventsApi.md#eventvideosdelete) | **DELETE** /events/{eventId}/videos/{videoId} | videos - delete
+*EventsApi* | [**eventVideosPatch**](docs/EventsApi.md#eventvideospatch) | **PATCH** /events/{eventId}/videos | videos - patch
+*EventsApi* | [**eventVideosPost**](docs/EventsApi.md#eventvideospost) | **POST** /events/{eventId}/videos | videos - add
+*EventsApi* | [**eventWorkflowStatusPut**](docs/EventsApi.md#eventworkflowstatusput) | **PUT** /events/{eventId}/workflow-status | workflowStatus - update
+*ImagesApi* | [**imageGet**](docs/ImagesApi.md#imageget) | **GET** /images/{imageId} | image - get
+*ImagesApi* | [**imagePost**](docs/ImagesApi.md#imagepost) | **POST** /images | image - upload
+*OrganizersApi* | [**organizerAddressNlPut**](docs/OrganizersApi.md#organizeraddressnlput) | **PUT** /organizers/{organizerId}/address | address.nl - update
+*OrganizersApi* | [**organizerAddressPut**](docs/OrganizersApi.md#organizeraddressput) | **PUT** /organizers/{organizerId}/address/{language} | address - update
+*OrganizersApi* | [**organizerContactPointPut**](docs/OrganizersApi.md#organizercontactpointput) | **PUT** /organizers/{organizerId}/contact-point | contactPoint - update
+*OrganizersApi* | [**organizerDescriptionDelete**](docs/OrganizersApi.md#organizerdescriptiondelete) | **DELETE** /organizers/{organizerId}/description/{language} | description - delete
+*OrganizersApi* | [**organizerDescriptionPut**](docs/OrganizersApi.md#organizerdescriptionput) | **PUT** /organizers/{organizerId}/description/{language} | description - update
+*OrganizersApi* | [**organizerEducationalDescriptionDelete**](docs/OrganizersApi.md#organizereducationaldescriptiondelete) | **DELETE** /organizers/{organizerId}/educational-description/{language} | educational description - delete
+*OrganizersApi* | [**organizerEducationalDescriptionPut**](docs/OrganizersApi.md#organizereducationaldescriptionput) | **PUT** /organizers/{organizerId}/educational-description/{language} | educational description - update
+*OrganizersApi* | [**organizerGet**](docs/OrganizersApi.md#organizerget) | **GET** /organizers/{organizerId} | organizer - get
+*OrganizersApi* | [**organizerImageDelete**](docs/OrganizersApi.md#organizerimagedelete) | **DELETE** /organizers/{organizerId}/images/{imageId} | images - delete
+*OrganizersApi* | [**organizerImagesPatch**](docs/OrganizersApi.md#organizerimagespatch) | **PATCH** /organizers/{organizerId}/images | images - patch
+*OrganizersApi* | [**organizerImagesPost**](docs/OrganizersApi.md#organizerimagespost) | **POST** /organizers/{organizerId}/images | images - add
+*OrganizersApi* | [**organizerLabelsAdd**](docs/OrganizersApi.md#organizerlabelsadd) | **PUT** /organizers/{organizerId}/labels/{labelName} | labels - add
+*OrganizersApi* | [**organizerLabelsDelete**](docs/OrganizersApi.md#organizerlabelsdelete) | **DELETE** /organizers/{organizerId}/labels/{labelName} | labels - delete
+*OrganizersApi* | [**organizerMainImageUpdate**](docs/OrganizersApi.md#organizermainimageupdate) | **PUT** /organizers/{organizerId}/images/main | mainImage - update
+*OrganizersApi* | [**organizerNameNlPut**](docs/OrganizersApi.md#organizernamenlput) | **PUT** /organizers/{organizerId}/name | name.nl - update
+*OrganizersApi* | [**organizerNamePut**](docs/OrganizersApi.md#organizernameput) | **PUT** /organizers/{organizerId}/name/{language} | name - update
+*OrganizersApi* | [**organizerPost**](docs/OrganizersApi.md#organizerpostoperation) | **POST** /organizers | organizer - create
+*OrganizersApi* | [**organizerPut**](docs/OrganizersApi.md#organizerput) | **PUT** /organizers/{organizerId} | organizer - update
+*OrganizersApi* | [**organizerUrlPut**](docs/OrganizersApi.md#organizerurlput) | **PUT** /organizers/{organizerId}/url | url - update
+*PlacesApi* | [**placeAddressPut**](docs/PlacesApi.md#placeaddressput) | **PUT** /places/{placeId}/address/{language} | address - update
+*PlacesApi* | [**placeAvailableFromPut**](docs/PlacesApi.md#placeavailablefromput) | **PUT** /places/{placeId}/available-from | availableFrom - update
+*PlacesApi* | [**placeBookingInfoPut**](docs/PlacesApi.md#placebookinginfoput) | **PUT** /places/{placeId}/booking-info | bookingInfo - update
+*PlacesApi* | [**placeCalendarPut**](docs/PlacesApi.md#placecalendarput) | **PUT** /places/{placeId}/calendar | calendar - update
+*PlacesApi* | [**placeCalendarSummaryGet**](docs/PlacesApi.md#placecalendarsummaryget) | **GET** /places/{placeId}/calendar-summary | calendar summary - get
+*PlacesApi* | [**placeContactPointPut**](docs/PlacesApi.md#placecontactpointput) | **PUT** /places/{placeId}/contact-point | contactPoint - update
+*PlacesApi* | [**placeDelete**](docs/PlacesApi.md#placedelete) | **DELETE** /places/{placeId} | place - delete
+*PlacesApi* | [**placeDescriptionDelete**](docs/PlacesApi.md#placedescriptiondelete) | **DELETE** /places/{placeId}/description/{language} | description - delete
+*PlacesApi* | [**placeDescriptionPut**](docs/PlacesApi.md#placedescriptionput) | **PUT** /places/{placeId}/description/{language} | description - update
+*PlacesApi* | [**placeFacilitiesPut**](docs/PlacesApi.md#placefacilitiesput) | **PUT** /places/{placeId}/facilities | facilities - update
+*PlacesApi* | [**placeGet**](docs/PlacesApi.md#placeget) | **GET** /places/{placeId} | place - get
+*PlacesApi* | [**placeImageDelete**](docs/PlacesApi.md#placeimagedelete) | **DELETE** /places/{placeId}/images/{imageId} | images - delete
+*PlacesApi* | [**placeImagePut**](docs/PlacesApi.md#placeimageput) | **PUT** /places/{placeId}/images/{imageId} | images - update
+*PlacesApi* | [**placeImagesPost**](docs/PlacesApi.md#placeimagespost) | **POST** /places/{placeId}/images | images - add
+*PlacesApi* | [**placeImportCreate**](docs/PlacesApi.md#placeimportcreateoperation) | **POST** /imports/places | place - import (create)
+*PlacesApi* | [**placeImportUpdate**](docs/PlacesApi.md#placeimportupdate) | **PUT** /imports/places/{placeId} | place - import (update)
+*PlacesApi* | [**placeLabelsDelete**](docs/PlacesApi.md#placelabelsdelete) | **DELETE** /places/{placeId}/labels/{labelName} | labels - delete
+*PlacesApi* | [**placeMainImagePut**](docs/PlacesApi.md#placemainimageput) | **PUT** /places/{placeId}/images/main | images main - update
+*PlacesApi* | [**placeMajorInfoPut**](docs/PlacesApi.md#placemajorinfoputoperation) | **PUT** /places/{placeId}/major-info | major-info - update
+*PlacesApi* | [**placeNamePut**](docs/PlacesApi.md#placenameput) | **PUT** /places/{placeId}/name/{language} | name - update
+*PlacesApi* | [**placeOrganizerDelete**](docs/PlacesApi.md#placeorganizerdelete) | **DELETE** /places/{placeId}/organizer/{organizerId} | organizer - delete
+*PlacesApi* | [**placeOrganizerUpdate**](docs/PlacesApi.md#placeorganizerupdate) | **PUT** /places/{placeId}/organizer/{organizerId} | organizer - update
+*PlacesApi* | [**placePost**](docs/PlacesApi.md#placepost) | **POST** /places | place - create
+*PlacesApi* | [**placePriceInfoPut**](docs/PlacesApi.md#placepriceinfoput) | **PUT** /places/{placeId}/price-info | priceInfo - update
+*PlacesApi* | [**placePut**](docs/PlacesApi.md#placeput) | **PUT** /places/{placeId} | place - update
+*PlacesApi* | [**placeStatusPut**](docs/PlacesApi.md#placestatusput) | **PUT** /places/{placeId}/status | status - update
+*PlacesApi* | [**placeTypePut**](docs/PlacesApi.md#placetypeput) | **PUT** /places/{placeId}/type/{termId} | type - update
+*PlacesApi* | [**placeTypicalAgeRangeDelete**](docs/PlacesApi.md#placetypicalagerangedelete) | **DELETE** /places/{placeId}/typical-age-range | typicalAgeRange - delete
+*PlacesApi* | [**placeTypicalAgeRangePut**](docs/PlacesApi.md#placetypicalagerangeput) | **PUT** /places/{placeId}/typical-age-range | typicalAgeRange - update
+*PlacesApi* | [**placeVideosDelete**](docs/PlacesApi.md#placevideosdelete) | **DELETE** /places/{placeId}/videos/{videoId} | videos - delete
+*PlacesApi* | [**placeVideosPost**](docs/PlacesApi.md#placevideospost) | **POST** /places/{placeId}/videos | videos - add
+*PlacesApi* | [**placeWorkflowStatusPut**](docs/PlacesApi.md#placeworkflowstatusput) | **PUT** /places/{placeId}/workflow-status | workflowStatus - update
+*PlacesApi* | [**placesLabelsAdd**](docs/PlacesApi.md#placeslabelsadd) | **PUT** /places/{placeId}/labels/{labelName} | labels - add
+*PlacesApi* | [**placesVideosPatch**](docs/PlacesApi.md#placesvideospatch) | **PATCH** /places/{placeId}/videos | videos - patch
+*UsersApi* | [**userGet**](docs/UsersApi.md#userget) | **GET** /user | current user - get
 
 
 ### Models
 
 - [CommonAddressLocalized](docs/CommonAddressLocalized.md)
 - [CommonBookingAvailabilityType](docs/CommonBookingAvailabilityType.md)
-- [CommonFacet](docs/CommonFacet.md)
+- [CommonItemType](docs/CommonItemType.md)
 - [CommonLanguage](docs/CommonLanguage.md)
 - [CommonName](docs/CommonName.md)
+- [CommonNewsArticleImage](docs/CommonNewsArticleImage.md)
+- [CommonOfferContactPoint](docs/CommonOfferContactPoint.md)
 - [CommonOpeningHoursAdjustedDaysInner](docs/CommonOpeningHoursAdjustedDaysInner.md)
 - [CommonOpeningHoursAdjustedDaysInnerDescription](docs/CommonOpeningHoursAdjustedDaysInnerDescription.md)
 - [CommonOpeningHoursClosedDaysInner](docs/CommonOpeningHoursClosedDaysInner.md)
@@ -192,87 +177,152 @@ All URIs are relative to *https://search-test.uitdatabank.be*
 - [ErrorSchemaErrorsInner](docs/ErrorSchemaErrorsInner.md)
 - [Event](docs/Event.md)
 - [EventAttendanceMode](docs/EventAttendanceMode.md)
+- [EventAttendanceModePut](docs/EventAttendanceModePut.md)
 - [EventAudience](docs/EventAudience.md)
+- [EventAvailableFromPut](docs/EventAvailableFromPut.md)
 - [EventBirthdateRange](docs/EventBirthdateRange.md)
+- [EventBirthdateRangePut](docs/EventBirthdateRangePut.md)
 - [EventBookingAvailability](docs/EventBookingAvailability.md)
 - [EventBookingInfo](docs/EventBookingInfo.md)
 - [EventBookingInfoUrlLabel](docs/EventBookingInfoUrlLabel.md)
+- [EventCalendarPut](docs/EventCalendarPut.md)
+- [EventCalendarPutDeprecated](docs/EventCalendarPutDeprecated.md)
+- [EventCalendarPutDeprecatedTimeSpansInner](docs/EventCalendarPutDeprecatedTimeSpansInner.md)
 - [EventCalendarSummary](docs/EventCalendarSummary.md)
 - [EventCalendarType](docs/EventCalendarType.md)
 - [EventContactPoint](docs/EventContactPoint.md)
+- [EventCopiesPost201Response](docs/EventCopiesPost201Response.md)
+- [EventCopiesPostRequest](docs/EventCopiesPostRequest.md)
 - [EventDeparturePlaces](docs/EventDeparturePlaces.md)
 - [EventDescription](docs/EventDescription.md)
+- [EventDescriptionPut](docs/EventDescriptionPut.md)
+- [EventImagePost](docs/EventImagePost.md)
+- [EventImagePut](docs/EventImagePut.md)
+- [EventLabelsPut](docs/EventLabelsPut.md)
 - [EventLocation](docs/EventLocation.md)
+- [EventMainImagePut](docs/EventMainImagePut.md)
 - [EventMainLanguage](docs/EventMainLanguage.md)
+- [EventMajorInfoPutRequest](docs/EventMajorInfoPutRequest.md)
+- [EventMajorInfoPutRequestLocation](docs/EventMajorInfoPutRequestLocation.md)
 - [EventName](docs/EventName.md)
+- [EventNamePut](docs/EventNamePut.md)
+- [EventOnlineUrlPut](docs/EventOnlineUrlPut.md)
 - [EventOpeningHours](docs/EventOpeningHours.md)
 - [EventOpeningHoursAdjustedDays](docs/EventOpeningHoursAdjustedDays.md)
 - [EventOpeningHoursChildcare](docs/EventOpeningHoursChildcare.md)
 - [EventOrganizer](docs/EventOrganizer.md)
+- [EventPost](docs/EventPost.md)
+- [EventPost201Response](docs/EventPost201Response.md)
+- [EventPostDeprecated](docs/EventPostDeprecated.md)
+- [EventPostDeprecatedType](docs/EventPostDeprecatedType.md)
 - [EventPriceInfoInner](docs/EventPriceInfoInner.md)
 - [EventProduction](docs/EventProduction.md)
+- [EventPut200Response](docs/EventPut200Response.md)
 - [EventStatus](docs/EventStatus.md)
 - [EventStatusReason](docs/EventStatusReason.md)
 - [EventSubEventBookingAvailability](docs/EventSubEventBookingAvailability.md)
 - [EventSubEventChildcare](docs/EventSubEventChildcare.md)
 - [EventSubEventInner](docs/EventSubEventInner.md)
+- [EventSubEventPatchInner](docs/EventSubEventPatchInner.md)
+- [EventSubEventPatchInnerBookingAvailability](docs/EventSubEventPatchInnerBookingAvailability.md)
+- [EventSubEventPatchInnerStatus](docs/EventSubEventPatchInnerStatus.md)
+- [EventSubEventPatchInnerStatusReason](docs/EventSubEventPatchInnerStatusReason.md)
+- [EventSubEventPutInner](docs/EventSubEventPutInner.md)
 - [EventTermsInner](docs/EventTermsInner.md)
+- [EventTypicalAgeRangePut](docs/EventTypicalAgeRangePut.md)
 - [EventVideosInner](docs/EventVideosInner.md)
+- [EventVideosPatchInner](docs/EventVideosPatchInner.md)
+- [EventVideosPost](docs/EventVideosPost.md)
+- [EventVideosPost200Response](docs/EventVideosPost200Response.md)
+- [EventWithReadExample](docs/EventWithReadExample.md)
+- [EventWithWriteExample](docs/EventWithWriteExample.md)
 - [EventWorkflowStatus](docs/EventWorkflowStatus.md)
+- [EventWorkflowStatusPut](docs/EventWorkflowStatusPut.md)
 - [Faq](docs/Faq.md)
 - [FaqDe](docs/FaqDe.md)
 - [FaqEn](docs/FaqEn.md)
 - [FaqFr](docs/FaqFr.md)
 - [FaqNl](docs/FaqNl.md)
-- [GetEvents200Response](docs/GetEvents200Response.md)
-- [GetEvents200ResponseFacet](docs/GetEvents200ResponseFacet.md)
-- [GetOffers200Response](docs/GetOffers200Response.md)
-- [GetOffers200ResponseMemberInner](docs/GetOffers200ResponseMemberInner.md)
-- [GetOrganizers200Response](docs/GetOrganizers200Response.md)
-- [GetOrganizers200ResponseFacet](docs/GetOrganizers200ResponseFacet.md)
-- [GetPlaces200Response](docs/GetPlaces200Response.md)
 - [Image](docs/Image.md)
+- [ImagePost](docs/ImagePost.md)
+- [ImagePost201Response](docs/ImagePost201Response.md)
 - [ModelError](docs/ModelError.md)
 - [OfferCalendarSummaryDetail](docs/OfferCalendarSummaryDetail.md)
 - [OfferCalendarSummaryDetailHtml](docs/OfferCalendarSummaryDetailHtml.md)
 - [OfferCalendarSummaryDetailText](docs/OfferCalendarSummaryDetailText.md)
 - [Organizer](docs/Organizer.md)
 - [OrganizerAddress](docs/OrganizerAddress.md)
+- [OrganizerAddressPut](docs/OrganizerAddressPut.md)
+- [OrganizerContactInner](docs/OrganizerContactInner.md)
 - [OrganizerContactPoint](docs/OrganizerContactPoint.md)
+- [OrganizerContactPointPut](docs/OrganizerContactPointPut.md)
 - [OrganizerDescription](docs/OrganizerDescription.md)
+- [OrganizerDescriptionPut](docs/OrganizerDescriptionPut.md)
 - [OrganizerEducationalDescription](docs/OrganizerEducationalDescription.md)
+- [OrganizerEducationalDescriptionPut](docs/OrganizerEducationalDescriptionPut.md)
 - [OrganizerGeo](docs/OrganizerGeo.md)
+- [OrganizerImagePost](docs/OrganizerImagePost.md)
+- [OrganizerImagesPatchInner](docs/OrganizerImagesPatchInner.md)
+- [OrganizerLabelsPut](docs/OrganizerLabelsPut.md)
+- [OrganizerMainImagePut](docs/OrganizerMainImagePut.md)
 - [OrganizerMainLanguage](docs/OrganizerMainLanguage.md)
 - [OrganizerName](docs/OrganizerName.md)
+- [OrganizerNamePut](docs/OrganizerNamePut.md)
+- [OrganizerPost201Response](docs/OrganizerPost201Response.md)
+- [OrganizerPostDeprecated](docs/OrganizerPostDeprecated.md)
+- [OrganizerPostRequest](docs/OrganizerPostRequest.md)
+- [OrganizerPut200Response](docs/OrganizerPut200Response.md)
+- [OrganizerUrlPut](docs/OrganizerUrlPut.md)
+- [OrganizerWithReadExample](docs/OrganizerWithReadExample.md)
 - [OrganizerWorkflowStatus](docs/OrganizerWorkflowStatus.md)
+- [Ownership](docs/Ownership.md)
+- [OwnershipState](docs/OwnershipState.md)
+- [Permission](docs/Permission.md)
 - [Place](docs/Place.md)
 - [PlaceAddress](docs/PlaceAddress.md)
+- [PlaceAddressPut](docs/PlaceAddressPut.md)
+- [PlaceAvailableFromPut](docs/PlaceAvailableFromPut.md)
 - [PlaceBookingAvailability](docs/PlaceBookingAvailability.md)
 - [PlaceBookingInfo](docs/PlaceBookingInfo.md)
+- [PlaceCalendarPut](docs/PlaceCalendarPut.md)
 - [PlaceCalendarSummary](docs/PlaceCalendarSummary.md)
 - [PlaceCalendarType](docs/PlaceCalendarType.md)
 - [PlaceContactPoint](docs/PlaceContactPoint.md)
 - [PlaceDescription](docs/PlaceDescription.md)
+- [PlaceDescriptionPut](docs/PlaceDescriptionPut.md)
 - [PlaceGeo](docs/PlaceGeo.md)
+- [PlaceImagePost](docs/PlaceImagePost.md)
+- [PlaceImagePut](docs/PlaceImagePut.md)
+- [PlaceImportCreateRequest](docs/PlaceImportCreateRequest.md)
+- [PlaceLabelsPut](docs/PlaceLabelsPut.md)
+- [PlaceMainImagePut](docs/PlaceMainImagePut.md)
 - [PlaceMainLanguage](docs/PlaceMainLanguage.md)
+- [PlaceMajorInfoPutRequest](docs/PlaceMajorInfoPutRequest.md)
 - [PlaceName](docs/PlaceName.md)
+- [PlaceNamePut](docs/PlaceNamePut.md)
 - [PlaceOpeningHoursAdjustedDays](docs/PlaceOpeningHoursAdjustedDays.md)
 - [PlaceOrganizer](docs/PlaceOrganizer.md)
+- [PlacePost](docs/PlacePost.md)
+- [PlacePost201Response](docs/PlacePost201Response.md)
+- [PlacePost409Response](docs/PlacePost409Response.md)
+- [PlacePostDeprecated](docs/PlacePostDeprecated.md)
+- [PlacePostDeprecatedType](docs/PlacePostDeprecatedType.md)
+- [PlacePut200Response](docs/PlacePut200Response.md)
 - [PlaceStatus](docs/PlaceStatus.md)
 - [PlaceTermsInner](docs/PlaceTermsInner.md)
+- [PlaceTypicalAgeRangePut](docs/PlaceTypicalAgeRangePut.md)
+- [PlaceVideosPost](docs/PlaceVideosPost.md)
+- [PlaceVideosPost200Response](docs/PlaceVideosPost200Response.md)
+- [PlaceWithReadExample](docs/PlaceWithReadExample.md)
+- [PlaceWithWriteExample](docs/PlaceWithWriteExample.md)
 - [PlaceWorkflowStatus](docs/PlaceWorkflowStatus.md)
+- [PlaceWorkflowStatusPut](docs/PlaceWorkflowStatusPut.md)
+- [UserGet200Response](docs/UserGet200Response.md)
 
 ### Authorization
 
+Endpoints do not require authorization.
 
-Authentication schemes defined for the API:
-<a id="CLIENT_IDENTIFICATION"></a>
-#### CLIENT_IDENTIFICATION
-
-
-- **Type**: API key
-- **API key parameter name**: `x-client-id`
-- **Location**: HTTP header
 
 ## About
 

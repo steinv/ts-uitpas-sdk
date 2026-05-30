@@ -14,7 +14,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { PlaceTermsInner } from '@steinv/uitpas-sdk'
+import type { PlaceTermsInner } from ''
 
 // TODO: Update the object below with actual values
 const example = {

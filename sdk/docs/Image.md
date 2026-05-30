@@ -16,7 +16,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { Image } from '@steinv/uitpas-sdk'
+import type { Image } from ''
 
 // TODO: Update the object below with actual values
 const example = {
