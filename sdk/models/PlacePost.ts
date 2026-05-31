@@ -34,13 +34,6 @@ import {
     PlaceDescriptionToJSON,
     PlaceDescriptionToJSONTyped,
 } from './PlaceDescription';
-import type { CommonAddressLocalized } from './CommonAddressLocalized';
-import {
-    CommonAddressLocalizedFromJSON,
-    CommonAddressLocalizedFromJSONTyped,
-    CommonAddressLocalizedToJSON,
-    CommonAddressLocalizedToJSONTyped,
-} from './CommonAddressLocalized';
 import type { PlaceStatus } from './PlaceStatus';
 import {
     PlaceStatusFromJSON,
@@ -104,13 +97,6 @@ import {
     PlaceContactPointToJSON,
     PlaceContactPointToJSONTyped,
 } from './PlaceContactPoint';
-import type { PlacePostDeprecated } from './PlacePostDeprecated';
-import {
-    PlacePostDeprecatedFromJSON,
-    PlacePostDeprecatedFromJSONTyped,
-    PlacePostDeprecatedToJSON,
-    PlacePostDeprecatedToJSONTyped,
-} from './PlacePostDeprecated';
 import type { PlaceOpeningHoursAdjustedDays } from './PlaceOpeningHoursAdjustedDays';
 import {
     PlaceOpeningHoursAdjustedDaysFromJSON,
@@ -118,6 +104,13 @@ import {
     PlaceOpeningHoursAdjustedDaysToJSON,
     PlaceOpeningHoursAdjustedDaysToJSONTyped,
 } from './PlaceOpeningHoursAdjustedDays';
+import type { PlaceName } from './PlaceName';
+import {
+    PlaceNameFromJSON,
+    PlaceNameFromJSONTyped,
+    PlaceNameToJSON,
+    PlaceNameToJSONTyped,
+} from './PlaceName';
 import type { PlaceCalendarSummary } from './PlaceCalendarSummary';
 import {
     PlaceCalendarSummaryFromJSON,
@@ -132,20 +125,6 @@ import {
     PlaceOrganizerToJSON,
     PlaceOrganizerToJSONTyped,
 } from './PlaceOrganizer';
-import type { PlacePostDeprecatedType } from './PlacePostDeprecatedType';
-import {
-    PlacePostDeprecatedTypeFromJSON,
-    PlacePostDeprecatedTypeFromJSONTyped,
-    PlacePostDeprecatedTypeToJSON,
-    PlacePostDeprecatedTypeToJSONTyped,
-} from './PlacePostDeprecatedType';
-import type { PlaceCalendarPut } from './PlaceCalendarPut';
-import {
-    PlaceCalendarPutFromJSON,
-    PlaceCalendarPutFromJSONTyped,
-    PlaceCalendarPutToJSON,
-    PlaceCalendarPutToJSONTyped,
-} from './PlaceCalendarPut';
 import type { PlaceBookingInfo } from './PlaceBookingInfo';
 import {
     PlaceBookingInfoFromJSON,
@@ -160,13 +139,13 @@ import {
     PlaceMainLanguageToJSON,
     PlaceMainLanguageToJSONTyped,
 } from './PlaceMainLanguage';
-import type { Place } from './Place';
+import type { PlaceAddress } from './PlaceAddress';
 import {
-    PlaceFromJSON,
-    PlaceFromJSONTyped,
-    PlaceToJSON,
-    PlaceToJSONTyped,
-} from './Place';
+    PlaceAddressFromJSON,
+    PlaceAddressFromJSONTyped,
+    PlaceAddressToJSON,
+    PlaceAddressToJSONTyped,
+} from './PlaceAddress';
 import type { CommonOpeningHoursClosedDaysInner } from './CommonOpeningHoursClosedDaysInner';
 import {
     CommonOpeningHoursClosedDaysInnerFromJSON,
@@ -194,11 +173,11 @@ export interface PlacePost {
      */
     mainLanguage: PlaceMainLanguage;
     /**
-     * The name of the place.
-     * @type {string}
+     * 
+     * @type {PlaceName}
      * @memberof PlacePost
      */
-    name: string;
+    name: PlaceName;
     /**
      * A list of taxonomy terms used to categorize the [place](./models/place.json).
      * 
@@ -216,11 +195,11 @@ export interface PlacePost {
      */
     calendarType: PlaceCalendarType;
     /**
-     * The address of the place in the main language.
-     * @type {CommonAddressLocalized}
+     * 
+     * @type {PlaceAddress}
      * @memberof PlacePost
      */
-    address: CommonAddressLocalized;
+    address: PlaceAddress;
     /**
      * 
      * @type {PlaceGeo}
@@ -439,18 +418,6 @@ export interface PlacePost {
      * @memberof PlacePost
      */
     calendarSummary?: PlaceCalendarSummary;
-    /**
-     * 
-     * @type {PlacePostDeprecatedType}
-     * @memberof PlacePost
-     */
-    type: PlacePostDeprecatedType;
-    /**
-     * Calendar info for the place.
-     * @type {PlaceCalendarPut}
-     * @memberof PlacePost
-     */
-    calendar: PlaceCalendarPut;
 }
 
 
@@ -486,8 +453,6 @@ export function instanceOfPlacePost(value: object): value is PlacePost {
     if (!('terms' in value) || value['terms'] === undefined) return false;
     if (!('calendarType' in value) || value['calendarType'] === undefined) return false;
     if (!('address' in value) || value['address'] === undefined) return false;
-    if (!('type' in value) || value['type'] === undefined) return false;
-    if (!('calendar' in value) || value['calendar'] === undefined) return false;
     return true;
 }
 
@@ -503,10 +468,10 @@ export function PlacePostFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         
         'id': json['@id'] == null ? undefined : json['@id'],
         'mainLanguage': PlaceMainLanguageFromJSON(json['mainLanguage']),
-        'name': json['name'],
+        'name': PlaceNameFromJSON(json['name']),
         'terms': ((json['terms'] as Array<any>).map(PlaceTermsInnerFromJSON)),
         'calendarType': PlaceCalendarTypeFromJSON(json['calendarType']),
-        'address': CommonAddressLocalizedFromJSON(json['address']),
+        'address': PlaceAddressFromJSON(json['address']),
         'geo': json['geo'] == null ? undefined : PlaceGeoFromJSON(json['geo']),
         'organizer': json['organizer'] == null ? undefined : PlaceOrganizerFromJSON(json['organizer']),
         'startDate': json['startDate'] == null ? undefined : (new Date(json['startDate'])),
@@ -538,8 +503,6 @@ export function PlacePostFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'contributors': json['contributors'] == null ? undefined : json['contributors'],
         'completeness': json['completeness'] == null ? undefined : json['completeness'],
         'calendarSummary': json['calendarSummary'] == null ? undefined : PlaceCalendarSummaryFromJSON(json['calendarSummary']),
-        'type': PlacePostDeprecatedTypeFromJSON(json['type']),
-        'calendar': PlaceCalendarPutFromJSON(json['calendar']),
     };
 }
 
@@ -556,10 +519,10 @@ export function PlacePostToJSONTyped(value?: Omit<PlacePost, 'availableTo'|'lang
         
         '@id': value['id'],
         'mainLanguage': PlaceMainLanguageToJSON(value['mainLanguage']),
-        'name': value['name'],
+        'name': PlaceNameToJSON(value['name']),
         'terms': ((value['terms'] as Array<any>).map(PlaceTermsInnerToJSON)),
         'calendarType': PlaceCalendarTypeToJSON(value['calendarType']),
-        'address': CommonAddressLocalizedToJSON(value['address']),
+        'address': PlaceAddressToJSON(value['address']),
         'geo': PlaceGeoToJSON(value['geo']),
         'organizer': PlaceOrganizerToJSON(value['organizer']),
         'startDate': value['startDate'] == null ? value['startDate'] : value['startDate'].toISOString(),
@@ -581,8 +544,6 @@ export function PlacePostToJSONTyped(value?: Omit<PlacePost, 'availableTo'|'lang
         'hiddenLabels': value['hiddenLabels'],
         'bookingAvailability': PlaceBookingAvailabilityToJSON(value['bookingAvailability']),
         'calendarSummary': PlaceCalendarSummaryToJSON(value['calendarSummary']),
-        'type': PlacePostDeprecatedTypeToJSON(value['type']),
-        'calendar': PlaceCalendarPutToJSON(value['calendar']),
     };
 }
 

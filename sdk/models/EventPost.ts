@@ -104,20 +104,6 @@ import {
     EventOrganizerToJSON,
     EventOrganizerToJSONTyped,
 } from './EventOrganizer';
-import type { EventPostDeprecated } from './EventPostDeprecated';
-import {
-    EventPostDeprecatedFromJSON,
-    EventPostDeprecatedFromJSONTyped,
-    EventPostDeprecatedToJSON,
-    EventPostDeprecatedToJSONTyped,
-} from './EventPostDeprecated';
-import type { EventCalendarPut } from './EventCalendarPut';
-import {
-    EventCalendarPutFromJSON,
-    EventCalendarPutFromJSONTyped,
-    EventCalendarPutToJSON,
-    EventCalendarPutToJSONTyped,
-} from './EventCalendarPut';
 import type { EventAttendanceMode } from './EventAttendanceMode';
 import {
     EventAttendanceModeFromJSON,
@@ -167,13 +153,6 @@ import {
     EventCalendarSummaryToJSON,
     EventCalendarSummaryToJSONTyped,
 } from './EventCalendarSummary';
-import type { EventPostDeprecatedType } from './EventPostDeprecatedType';
-import {
-    EventPostDeprecatedTypeFromJSON,
-    EventPostDeprecatedTypeFromJSONTyped,
-    EventPostDeprecatedTypeToJSON,
-    EventPostDeprecatedTypeToJSONTyped,
-} from './EventPostDeprecatedType';
 import type { EventName } from './EventName';
 import {
     EventNameFromJSON,
@@ -188,13 +167,6 @@ import {
     FaqToJSON,
     FaqToJSONTyped,
 } from './Faq';
-import type { Event } from './Event';
-import {
-    EventFromJSON,
-    EventFromJSONTyped,
-    EventToJSON,
-    EventToJSONTyped,
-} from './Event';
 import type { EventCalendarType } from './EventCalendarType';
 import {
     EventCalendarTypeFromJSON,
@@ -542,18 +514,6 @@ export interface EventPost {
      * @memberof EventPost
      */
     departurePlaces?: EventDeparturePlaces;
-    /**
-     * 
-     * @type {EventPostDeprecatedType}
-     * @memberof EventPost
-     */
-    type: EventPostDeprecatedType;
-    /**
-     * Calendar info for the event.
-     * @type {EventCalendarPut}
-     * @memberof EventPost
-     */
-    calendar: EventCalendarPut;
 }
 
 
@@ -589,8 +549,6 @@ export function instanceOfEventPost(value: object): value is EventPost {
     if (!('terms' in value) || value['terms'] === undefined) return false;
     if (!('location' in value) || value['location'] === undefined) return false;
     if (!('calendarType' in value) || value['calendarType'] === undefined) return false;
-    if (!('type' in value) || value['type'] === undefined) return false;
-    if (!('calendar' in value) || value['calendar'] === undefined) return false;
     return true;
 }
 
@@ -648,8 +606,6 @@ export function EventPostFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'calendarSummary': json['calendarSummary'] == null ? undefined : EventCalendarSummaryFromJSON(json['calendarSummary']),
         'faqs': json['faqs'] == null ? undefined : ((json['faqs'] as Array<any>).map(FaqFromJSON)),
         'departurePlaces': json['departurePlaces'] == null ? undefined : EventDeparturePlacesFromJSON(json['departurePlaces']),
-        'type': EventPostDeprecatedTypeFromJSON(json['type']),
-        'calendar': EventCalendarPutFromJSON(json['calendar']),
     };
 }
 
@@ -698,8 +654,6 @@ export function EventPostToJSONTyped(value?: Omit<EventPost, 'availableTo'|'same
         'calendarSummary': EventCalendarSummaryToJSON(value['calendarSummary']),
         'faqs': value['faqs'] == null ? undefined : ((value['faqs'] as Array<any>).map(FaqToJSON)),
         'departurePlaces': EventDeparturePlacesToJSON(value['departurePlaces']),
-        'type': EventPostDeprecatedTypeToJSON(value['type']),
-        'calendar': EventCalendarPutToJSON(value['calendar']),
     };
 }
 

@@ -8,10 +8,10 @@ Name | Type
 ------------ | -------------
 `id` | string
 `mainLanguage` | [PlaceMainLanguage](PlaceMainLanguage.md)
-`name` | string
+`name` | [PlaceName](PlaceName.md)
 `terms` | [Array&lt;PlaceTermsInner&gt;](PlaceTermsInner.md)
 `calendarType` | [PlaceCalendarType](PlaceCalendarType.md)
-`address` | [CommonAddressLocalized](CommonAddressLocalized.md)
+`address` | [PlaceAddress](PlaceAddress.md)
 `geo` | [PlaceGeo](PlaceGeo.md)
 `organizer` | [PlaceOrganizer](PlaceOrganizer.md)
 `startDate` | Date
@@ -43,8 +43,6 @@ Name | Type
 `contributors` | Array&lt;string&gt;
 `completeness` | number
 `calendarSummary` | [PlaceCalendarSummary](PlaceCalendarSummary.md)
-`type` | [PlacePostDeprecatedType](PlacePostDeprecatedType.md)
-`calendar` | [PlaceCalendarPut](PlaceCalendarPut.md)
 
 ## Example
 
@@ -90,8 +88,6 @@ const example = {
   "contributors": null,
   "completeness": 56,
   "calendarSummary": null,
-  "type": null,
-  "calendar": null,
 } satisfies PlacePost
 
 console.log(example)

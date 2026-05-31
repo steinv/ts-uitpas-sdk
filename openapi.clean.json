@@ -10014,12 +10014,9 @@
         ]
       },
       "Event-post": {
-        "anyOf": [
+        "allOf": [
           {
             "$ref": "#/components/schemas/Event"
-          },
-          {
-            "$ref": "#/components/schemas/Event-post-deprecated"
           }
         ],
         "examples": [
@@ -14859,12 +14856,9 @@
         ]
       },
       "Place-post": {
-        "anyOf": [
+        "allOf": [
           {
             "$ref": "#/components/schemas/Place"
-          },
-          {
-            "$ref": "#/components/schemas/Place-post-deprecated"
           }
         ],
         "examples": [

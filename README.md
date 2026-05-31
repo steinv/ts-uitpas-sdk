@@ -14,7 +14,9 @@ npm install @steinv/uitpas-sdk
 
 ```
 node cleanup-openapi.js
-rm -r ./sdk/src
+rm -r ./sdk/models
+rm -r ./sdk/apis
+rm -r ./sdk/docs
 npx @openapitools/openapi-generator-cli generate \
   -i openapi.clean.json \
   -g typescript-fetch \

@@ -50,8 +50,6 @@ Name | Type
 `calendarSummary` | [EventCalendarSummary](EventCalendarSummary.md)
 `faqs` | [Array&lt;Faq&gt;](Faq.md)
 `departurePlaces` | [EventDeparturePlaces](EventDeparturePlaces.md)
-`type` | [EventPostDeprecatedType](EventPostDeprecatedType.md)
-`calendar` | [EventCalendarPut](EventCalendarPut.md)
 
 ## Example
 
@@ -104,8 +102,6 @@ const example = {
   "calendarSummary": null,
   "faqs": null,
   "departurePlaces": null,
-  "type": null,
-  "calendar": null,
 } satisfies EventPost
 
 console.log(example)

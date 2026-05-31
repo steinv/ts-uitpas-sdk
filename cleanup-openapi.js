@@ -47,6 +47,40 @@ if (imageSchema) {
   }
 }
 
+// For each *-post schema that is anyOf: [Canonical, Deprecated], replace it with
+// allOf: [Canonical] to drop the deprecated variant.
+// The generator merges required fields from ALL anyOf branches, so keeping the
+// deprecated branch causes deprecated required fields (e.g. `type`, `calendar`)
+// to appear as required on the generated TypeScript interface.
+// allOf with a single $ref forces the generator to create a real model file with
+// exactly the canonical schema's required fields.
+const DEPRECATED_SUFFIX = "-deprecated";
+const schemas = data.components?.schemas ?? {};
+let deprecatedVariantsDropped = 0;
+for (const [name, schema] of Object.entries(schemas)) {
+  if (!Array.isArray(schema.anyOf)) continue;
+  // Only act if at least one variant is a deprecated $ref
+  const hasDeprecatedRef = schema.anyOf.some(
+    (s) => s.$ref && s.$ref.toLowerCase().endsWith(DEPRECATED_SUFFIX)
+  );
+  if (!hasDeprecatedRef) continue;
+  // Remove deprecated $ref entries; keep all other entries (inline schemas or non-deprecated refs)
+  const nonDeprecated = schema.anyOf.filter(
+    (s) => !s.$ref || !s.$ref.toLowerCase().endsWith(DEPRECATED_SUFFIX)
+  );
+  const examples = schema.examples;
+  Object.keys(schema).forEach((k) => delete schema[k]);
+  if (nonDeprecated.length === 1 && nonDeprecated[0].$ref) {
+    schema.allOf = [{ $ref: nonDeprecated[0].$ref }];
+  } else {
+    schema.anyOf = nonDeprecated;
+  }
+  if (examples) schema.examples = examples;
+  deprecatedVariantsDropped++;
+}
+
+const deprecatedSchemasRemoved = 0; // deprecated schemas kept so inline path $refs still resolve
+
 // Remove `uniqueItems` from all array-type schemas.
 // The TypeScript generator maps `uniqueItems: true` to Set<T>, which lacks .map()
 // and other Array methods used in the generated API client code.
@@ -75,5 +109,7 @@ Object.entries(SCHEMA_RENAMES).forEach(([from, to]) => {
 });
 console.log("Property fixes:");
 console.log("  Image.@id removed (prevented duplicate TypeScript `id` identifier)");
+console.log(`  Deprecated anyOf variants dropped from ${deprecatedVariantsDropped} schema(s) (prevented deprecated required fields leaking into generated types)`);
+console.log(`  ${deprecatedSchemasRemoved} deprecated schema definitions removed`);
 console.log(`  uniqueItems removed from ${uniqueItemsRemoved} array schema(s) (prevented Set<T> generation)`);
 console.log(`\nWritten to ${OUTPUT}`);
