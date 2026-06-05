@@ -11,8 +11,13 @@
 const fs = require("fs");
 const path = require("path");
 
-const INPUT = path.join(__dirname, "openapi.json");
-const OUTPUT = path.join(__dirname, "openapi.clean.json");
+const inputArg = process.argv[2];
+if (!inputArg) {
+  console.error("Usage: node cleanup-openapi.js <input.json>");
+  process.exit(1);
+}
+const INPUT = path.resolve(inputArg);
+const OUTPUT = path.join(path.dirname(INPUT), path.basename(INPUT, ".json") + ".clean.json");
 
 // Step 1: rename schema names that contain characters invalid for OpenAPI Generator
 const SCHEMA_RENAMES = {
