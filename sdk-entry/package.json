@@ -1,7 +1,7 @@
 {
   "name": "@steinv/publiq-entry-sdk",
   "version": "1.0.0",
-  "description": "BETA OpenAPI client for @steinv/uitpas-sdk",
+  "description": "BETA OpenAPI client for Publiq Entry SDK - UitInVlaander",
   "author": "Stein Vanmassenhove",
   "repository": {
     "type": "git",

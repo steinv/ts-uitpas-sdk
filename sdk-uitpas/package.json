@@ -1,7 +1,7 @@
 {
   "name": "@steinv/publiq-uitpas-sdk",
   "version": "1.0.0",
-  "description": "BETA OpenAPI client for @steinv/publiq-uitpas-sdk",
+  "description": "BETA OpenAPI client for Publiq UitPas SDK - UiTPAS",
   "author": "Stein Vanmassenhove",
   "repository": {
     "type": "git",
