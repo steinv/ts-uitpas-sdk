@@ -1,4 +1,4 @@
-# @steinv/uitpas-sdk@1.0.0
+# @steinv/uitpas-sdk
 
 A TypeScript SDK client for the io-test.uitdatabank.be API.
 

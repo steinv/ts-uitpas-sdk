@@ -1,4 +1,4 @@
-# @steinv/publiq-uitpas-sdk@1.0.0
+# @steinv/publiq-uitpas-sdk
 
 A TypeScript SDK client for the api-test.uitpas.be API.
 
